@@ -1,0 +1,26 @@
+Objetivos Generales:
+
+Analizar los patrones de transferencias interbancarias entre clientes.
+Identificar los principales bancos involucrados en las transferencias interbancarias.
+Evaluar la efectividad de los diferentes tipos de mensajes utilizados en las transferencias interbancarias.
+Objetivos Específicos:
+
+Identificar el mes con mayor cantidad de transferencias interbancarias y el monto total transferido en ese mes.
+Determinar el tipo de mensaje más utilizado en las transferencias interbancarias y su porcentaje de uso en relación al total.
+Analizar la relación entre el tipo de mensaje utilizado y el monto transferido.
+Evaluar el rendimiento de cada banco en términos de cantidad de transferencias interbancarias y monto total transferido por tipo de mensaje.
+
+
+-----------------------------------------------------
+
+Objetivos Generales:
+
+- Analizar los patrones de transferencias interbancarias entre clientes, considerando los montos y las monedas utilizadas.
+- Identificar los principales bancos involucrados en las transferencias interbancarias y los montos totales transferidos por moneda.
+- Evaluar la efectividad de los diferentes tipos de mensajes utilizados en las transferencias interbancarias, considerando los montos y las monedas involucradas.
+
+Objetivos Específicos:
+
+- Identificar el mes con mayor cantidad de transferencias interbancarias, el monto total transferido en ese mes y la distribución de las monedas utilizadas.
+- Determinar el tipo de mensaje más utilizado en las transferencias interbancarias y su porcentaje de uso en relación al total, considerando los montos y las monedas involucradas.
+- Analizar la relación entre el tipo de mensaje utilizado, el monto transferido y la moneda utilizada.
