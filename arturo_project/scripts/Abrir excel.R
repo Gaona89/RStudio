@@ -94,7 +94,51 @@ df_2$`EUR Cantidad`[is.na(df_2$`EUR Cantidad`)] <- 0
  
  ggplot(datos_sin_fila, aes(x, y)) + geom_point() 
  
+ ggplot(datos_sin_fila, aes(x, y)) + geom_line() 
+ 
  #Eliminar ceros
  
  datos_sin_fila <- subset(a, a$x != 0)
+ 
+ #Fecha vs Monto
+ 
+ 
+ FvM = data.frame(x=df_2$`Año Mes`, y = df_2$Euros_Importe_destino) 
+
+ datos_ceros_montos <- subset(FvM, FvM$y != 0)
+ a = data.frame(x = 1:10, y = c(1:5)) 
+ ggplot(a, aes(df_2$`EUR Cantidad`, df_2$Euros_Importe_destino)) + geom_point() + scale_y_continuous(limits = c(0, 7))
+ 
+ ggplot(a, aes(x, y))
+ 
+ ggplot(datos_ceros_montos, aes(x, y)) + geom_point() 
+ 
+ ggplot(datos_ceros_montos, aes(x, y)) + geom_line() 
+ 
+ 
+ # convertir las fechas 
+ 
+ fecha <- "2014/10"
+ año <- format(as.Date(paste(fecha, "01", sep = "/"), "%Y/%m/%d"), "%Y")
+ 
+ df_2$Año <- format(as.Date(paste(df_2$`Año Mes`, "01", sep = "/"), "%Y/%m/%d"), "%Y")
+ 
+ 
+ #Agrupar valores
+ view(df_2)
+
+ count(df_2, Año)
+ 
+ df_4 <- filter(df_2, Año == 2014)
+ sum(df_2$Euros_Importe_destino )
+
+ df_3 <- df_2 %>%
+   group_by(Euros_Importe_destino)  %>% filter(df_2, Año == 2014)
+ 
+ ?aggregate
+ 
+ suma_por_año <- aggregate(df_2$Euros_Importe_destino, by = list(año = df_2$Año), FUN = sum)
+ 
+ 
+ ggplot(suma_por_año, aes( x, año)) + geom_point() 
  
