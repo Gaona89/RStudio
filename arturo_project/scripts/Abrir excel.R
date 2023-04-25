@@ -62,9 +62,10 @@ df_2$`EUR Cantidad`[is.na(df_2$`EUR Cantidad`)] <- 0
  
  ?aggregate
  
- suma_por_año$xd <- suma_por_año$x/1000000
- 
  suma_por_año <- aggregate(df_2$Euros_Importe_destino, by = list(año = df_2$Año), FUN = sum)
+ 
+  suma_por_año$xd <- suma_por_año$x/1000000
+ 
  
  ggplot(suma_por_año, aes( xd, año)) + geom_point() + labs(y = "Año Mes", x = "Importe destino en millones", title = "Transferencias por montos y Moneda Euro")  
  
