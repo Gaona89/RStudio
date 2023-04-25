@@ -6,6 +6,9 @@ pacman::p_load(tidyverse, # Manejo y tratamiento de datos
                rio,       # Importación y exportación de bases de datos
                REDCapR)   # Importación de datos del REDCap
 library(dplyr)
+if (!require('ggplot2'))
+  install.packages("ggplot2")
+library(ggplot2) 
 
 # Importar casos confirmados desde Excel 
 df_2  <- import("datos/SIPAP_pestañas/Entidades Financieras 01.xlsx")
@@ -137,8 +140,18 @@ df_2$`EUR Cantidad`[is.na(df_2$`EUR Cantidad`)] <- 0
  
  ?aggregate
  
+ suma_por_año$xd <- suma_por_año$x/1000000
+ 
  suma_por_año <- aggregate(df_2$Euros_Importe_destino, by = list(año = df_2$Año), FUN = sum)
  
+
+ ggplot(suma_por_año, aes( xd, año)) + geom_point() + labs(y = "Año Mes", x = "Importe destino en millones", title = "Transferencias por montos y Moneda Euro")  
  
- ggplot(suma_por_año, aes( x, año)) + geom_point() 
+ ?geom_histogram
+ ggplot(suma_por_año, aes(xd, año )) + geom_histogram(bins = 10)  
  
+   
+   scale_x_continuous(labels = scales::scientific_format(scale = 1e6), name = "Valores (millones de dólares)")
+   
+   ggplot(suma_por_año, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año Mes", y = "Importe destino en millones", title = "Transferencias por montos y Moneda Euro")  
+   
