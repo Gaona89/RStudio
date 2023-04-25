@@ -54,3 +54,4 @@ names(renamed[1:2])
 ?geom_histogram()
 
 ggplot(aes(x = time, y = variable), data = data) + geom_line()
+
