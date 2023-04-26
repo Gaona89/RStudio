@@ -29,13 +29,13 @@ df_2$Euros_Importe_destino[is.na(df_2$Euros_Importe_destino)] <- 0
 #Dolares Importe
 df_2$Dolares_Importe_destino<- as.numeric(na_if(df_2$`USD Importe Destino`, ""))
 
-df_2$Euros_Importe_destino[is.na(df_2$Euros_Importe_destino)] <- 0
+df_2$Dolares_Importe_destino[is.na(df_2$Dolares_Importe_destino)] <- 0
 
 
 #Guaranies Importe
 df_2$Guaranies_Importe_destino<- as.numeric(na_if(df_2$`PYG Importe Destino`, ""))
 
-df_2$Guaranies_Importe_destino[is.na(df_2$Euros_Importe_destino)] <- 0
+df_2$Guaranies_Importe_destino[is.na(df_2$Guaranies_Importe_destino)] <- 0
 
 #Euros Cantidad
 
@@ -99,14 +99,14 @@ suma_por_año$xd <- suma_por_año$x/1000000
 
 #Dolares
 
-df_2$Dolares_Importe_destino <- format(df_2$Dolares_Importe_destino, scientific = FALSE)
+#df_2$Dolares_Importe_destino <- format(df_2$Dolares_Importe_destino, scientific = FALSE)
 suma_por_añoD <- aggregate(df_2$Dolares_Importe_destino, by = list(año = df_2$Año), FUN = sum)
 suma_por_añoD$xd <- suma_por_añoD$x/1000000
 suma_por_añoD$xd <- format(suma_por_añoD$xd, scientific = FALSE)
 View(suma_por_añoD)
 
 #Guaranies
-df_2$Guaranies_Importe_destino <- format(df_2$Guaranies_Importe_destino, scientific = FALSE)
+#df_2$Guaranies_Importe_destino <- format(df_2$Guaranies_Importe_destino, scientific = FALSE)
 suma_por_añoG <- aggregate(df_2$Guaranies_Importe_destino, by = list(año = df_2$Año), FUN = sum)
 suma_por_añoG$xd <- suma_por_añoG$x/1000000
 
