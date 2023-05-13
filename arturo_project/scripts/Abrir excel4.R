@@ -42,8 +42,8 @@ Datos1 <- format(datos_ceros_montos, scientific = FALSE)
 Datos1$y <- datos_ceros_montos$y/1000000000000
 
 #Guaranies
-barplot(height=Datos1$y, names=Datos1$año, border="#202020", col="green", 
-        xlab ="Año", 
+barplot(height=Datos1$y, names=Datos1$x, border="#202020", col="green", 
+        xlab ="Meses", 
         ylab ="Importe destino en miles de millones", 
         main = "Transferencias por montos y Moneda Guaranies",
         ylim=c(0,5),las=1)
