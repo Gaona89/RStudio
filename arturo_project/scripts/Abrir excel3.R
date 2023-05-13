@@ -11,7 +11,7 @@ if (!require('ggplot2'))
 library(ggplot2) 
 
 # Importar casos confirmados desde Excel 
-#Segunda planilla
+#Quinta planilla
 
 
 df_5 <- import("datos/SIPAP_pestañas/Entidades Financieras 05.xlsx")
