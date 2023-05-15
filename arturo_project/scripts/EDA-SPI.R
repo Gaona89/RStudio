@@ -60,6 +60,8 @@ df_area_clean <- subset(df_area_clean, Bancos != "ARAFPYPAXXXX")
 df_area_clean <- subset(df_area_clean, Bancos != "INFAPYPAXXXX")
 
 df_datos_2022<-describe(df_area_clean)
+
+plop
   
 
 
