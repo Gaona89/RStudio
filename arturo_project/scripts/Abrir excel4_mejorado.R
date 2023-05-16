@@ -39,20 +39,68 @@ suma_por_añoBanco <- aggregate(don2$monto, by = list(año = don2$Año, banco = 
 
 suma_por_añoBanco$xd <- suma_por_añoBanco$x/10000000000
 
+
+##### Remplazo de codigos 
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "AFDEPYPAXXXX", "AGEN FINANC DE DESAR")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "AMAMPYPAXXXX", "BASA S.A.")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BBVAPYPAXXXX", "BBVA")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BCNAPYPAXXXX", "CONTINENTAL ")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BCOPPYPAXXXX", "CO P/COMERC & PROD")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BGNBPYPXXXXX", "GNB")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BISAPYPEXXXX", "RIO")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BNFAPYPAXXXX", "BNF")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BNITPYPAXXXX", "ATLAS")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BRASPYPXXXXX", "BANCO DO BRASIL")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BSUDPYPXXXXX", "SUDAMERIS")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "CITIUS33XASR", "CITIBANK")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "COMAPYPAXXXX", "UENO")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "FAMIPYPAXXXX", "FAMILIAR")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "FICSPYPAXXXX", "FIC ")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "FINLPYPAXXXX", "FINLATINA ")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "FIPJPYPAXXXX", "PARAGUAYO JAPONESA ")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "FNXAPYPAXXXX", "FINEXPAR S.A.E.C.A.")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "FRIOPYPAXXXX", "FINANCIERA RIO")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "IIFAPYPAXXXX", "GRUP INTER DE FINANZAS")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "MIHAPYPAXXXX", "MINISTERIO DE HACIENDA")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "NACNPYPAXXXX", "BANCO ARGENTINA")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "RGSAPYPEXXXX", "REGIONAL")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "SOLAPYPAXXXX", "SOLAR ")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "TUFIPYPAXXXX", "TU FINANCIERA")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "UBBRPYPXXXXX", "ITAU")
+suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "VISCPYPAXXXX", "VISION")
+
+##### Remplazo de codigos 
+
 #ok
 
 # Plot
 
-suma_por_añoBanco %>%
+anim <- suma_por_añoBanco %>%
   ggplot( aes(x = año, y =xd, group=banco, color=banco)) +
   geom_line() +
   geom_point() +
+  geom_text(
+    label=c(suma_por_añoBanco$banco),
+    nudge_x=0.45, nudge_y=0.1,
+    check_overlap=T
+  )+
   #scale_color_viridis(discrete = TRUE) +
   ggtitle("Transacciones por Entidades") +
   theme_ipsum() +
   ylab("Importe destino en miles de millones") +
   transition_reveal(as.numeric(año))
 
+
+
+# animate it
+animate(anim,
+        width = 1000, height = 1000,
+        nframes = 480, fps = 25)
+
 # Save at gif:
-anim_save("transaccon.gif")
+anim_save("transaccon_etiqueta_rescalado.gif")
+
+
+
+
 
