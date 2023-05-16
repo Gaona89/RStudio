@@ -152,7 +152,7 @@ ylim=c(0,10),las=1)
 #Dolares
 barplot(height=suma_por_añoD$xd, names=suma_por_añoD$año, border="#202020", col="red", 
 xlab ="Año", 
-ylab ="Importe destino en millones", 
+ylab ="Importe destino en miles de millones", 
 main = "Transferencias por montos y Moneda Dolares",
 ylim=c(0,10), las=1)
 
