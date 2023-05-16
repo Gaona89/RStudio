@@ -69,6 +69,39 @@ suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco
 suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "UBBRPYPXXXXX", "ITAU")
 suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "VISCPYPAXXXX", "VISION")
 
+
+#limpiamos datos de bancos qu eno poseen datos
+
+suma_por_añoBanco <- subset(suma_por_añoBanco, xd != 0)
+
+  
+  df_porcentaje <- suma_por_añoBanco  %>%
+    group_by(banco) %>%
+    summarize(total_monto = sum(x)) %>%
+    mutate(porcentaje = total_monto / sum(total_monto) * 100)
+
+
+
+#  
+    df_porcentaje$porcentaje <-round(df_porcentaje$porcentaje, digits = 2)
+    
+    sum(df_porcentaje$porcentaje)
+    
+
+#Graficar:
+    
+    library(ggplot2)
+
+    
+    # Crear el gráfico de líneas
+    ggplot(df_porcentaje, aes(x = porcentaje, y = banco, group = 1)) +
+      geom_line() +
+      geom_point() +
+      geom_text(aes(label = paste(porcentaje, "%")),
+                hjust = -0.2, vjust = 0.5, size = 3) +
+      labs(x = "Porcentaje", y = "Entidades", title = "Porcentajes total montos por entidad (PYG)")
+
+  
 ##### Remplazo de codigos 
 
 #ok
@@ -93,9 +126,10 @@ anim <- suma_por_añoBanco %>%
 
 
 # animate it
+
 animate(anim,
-        width = 1000, height = 1000,
-        nframes = 480, fps = 25)
+        width = 1000, height = 600,
+        nframes = 100, fps = 5)
 
 # Save at gif:
 anim_save("transaccon_etiqueta_rescalado.gif")

@@ -61,7 +61,14 @@ df_area_clean <- subset(df_area_clean, Bancos != "INFAPYPAXXXX")
 
 df_datos_2022<-describe(df_area_clean)
 
-plop
-  
+#Agregamos separadores de miles
+df <- df_datos_2022 %>% 
+  mutate(min = format(min, big.mark = ","))
+
+df <- df %>% 
+  mutate(mean = format(mean, big.mark = ","))
+
+df <- df %>% 
+  mutate(max = format(max, big.mark = ","))
 
 
