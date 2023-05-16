@@ -54,7 +54,6 @@ df_2$`PYG Cantidad`<- as.numeric(na_if(df_2$`PYG Cantidad`, ""))
 df_2$`PYG Cantidad`[is.na(df_2$`PYG Cantidad`)] <- 0
 
 
-
 #Fecha vs Monto
 
 #Euros
@@ -96,14 +95,15 @@ df_2$Año <- format(as.Date(paste(df_2$`Año Mes`, "01", sep = "/"), "%Y/%m/%d")
 #Euros
 
 suma_por_año <- aggregate(df_2$Euros_Importe_destino, by = list(año = df_2$Año), FUN = sum)
-
 suma_por_año$xd <- suma_por_año$x/1000000
+suma_por_año <- suma_por_año %>% filter(año != "2023")
 
 #Dolares
 ?trunc
 #df_2$Dolares_Importe_destino <- format(df_2$Dolares_Importe_destino, scientific = FALSE)
 suma_por_añoD <- aggregate(df_2$Dolares_Importe_destino, by = list(año = df_2$Año), FUN = sum)
 suma_por_añoD$xd <- suma_por_añoD$x/10000000000000
+suma_por_añoD <- suma_por_añoD %>% filter(año != "2023")
 #suma_por_añoD$xd <- trunc(suma_por_añoD$xd,0)
 #suma_por_añoD$xd <- format(suma_por_añoD$xd, scientific = FALSE)
 #View(suma_por_añoD)
@@ -112,24 +112,24 @@ suma_por_añoD$xd <- suma_por_añoD$x/10000000000000
 #df_2$Guaranies_Importe_destino <- format(df_2$Guaranies_Importe_destino, scientific = FALSE)
 suma_por_añoG <- aggregate(df_2$Guaranies_Importe_destino, by = list(año = df_2$Año), FUN = sum)
 suma_por_añoG$xd <- suma_por_añoG$x/1000000000
-
+suma_por_añoG <- suma_por_añoG %>% filter(año != "2023")
 
 #Histograma
 
 #Euros
-ggplot(suma_por_año, aes( xd, año)) + geom_point() + labs(y = "Año Mes", x = "Importe destino en millones", title = "Transferencias por montos y Moneda Euro")  
+ggplot(suma_por_año, aes( xd, año)) + geom_point() + labs(y = "Año", x = "Importe destino en miles de millones", title = "Transferencias por Montos y Moneda Euro")  
 
-ggplot(suma_por_año, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año Mes", y = "Importe destino en millones", title = "Transferencias por montos y Moneda Euro")  
+ggplot(suma_por_año, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año", y = "Importe destino en millones", title = "Transferencias por Montos y Moneda Euro")  
 
 #Dolares
-ggplot(suma_por_añoD, aes( xd, año)) + geom_point() + labs(y = "Año Mes", x = "Importe destino en miles de millones", title = "Transferencias por montos y Moneda Dolares")  
+ggplot(suma_por_añoD, aes( xd, año)) + geom_point() + labs(y = "Año", x = "Importe destino en miles de millones", title = "Transferencias por Montos y Moneda Dolares")  
 
-ggplot(suma_por_añoD, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año Mes", y = "Importe destino en miles de millones", title = "Transferencias por montos y Moneda Dolares")  
+ggplot(suma_por_añoD, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año", y = "Importe destino en miles de millones", title = "Transferencias por Montos y Moneda Dolares")  
 
 #Guaranies
-ggplot(suma_por_añoG, aes( xd, año)) + geom_point() + labs(y = "Año Mes", x = "Importe destino en miles de millones", title = "Transferencias por montos y Moneda Guaranies")  
+ggplot(suma_por_añoG, aes( xd, año)) + geom_point() + labs(y = "Año", x = "Importe destino en miles de millones", title = "Transferencias por Montos y Moneda Guaranies")  
 
-ggplot(suma_por_añoG, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año Mes", y = "Importe destino en miles de millones", title = "Transferencias por montos y Moneda Guaranies")  
+ggplot(suma_por_añoG, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año", y = "Importe destino en miles de millones", title = "Transferencias por Montos y Moneda Guaranies")  
 
 # Libraries barplot
 library(ggplot2)

@@ -30,9 +30,9 @@ Datos$y <- datos_ceros_montos$y/1000000000
 
 #Guaranies
 
-ggplot(Datos, aes( x = as.factor(x) , y= y )) + geom_point() + labs(x = "Meses", y = "Importe destino en miles de millones", title = "Transferencias por montos y Moneda Guaranies")  
+ggplot(Datos, aes( x = as.factor(x) , y= y )) + geom_point() + labs(x = "Meses", y = "Importe destino en miles de millones", title = "Transferencias por Montos")  
 
-ggplot(Datos, aes(x = as.factor(x) , y= y  )) + geom_bar(stat = "identity") + labs( x = "Meses", y = "Importe destino en miles de millones", title = "Transferencias por montos y Moneda Guaranies")  
+ggplot(Datos, aes(x = as.factor(x) , y= y  )) + geom_bar(stat = "identity") + labs( x = "Meses", y = "Importe destino en miles de millones", title = "Transferencias por Montos")  
 
 
 # Libraries barplot
@@ -42,11 +42,11 @@ Datos1 <- format(datos_ceros_montos, scientific = FALSE)
 Datos1$y <- datos_ceros_montos$y/1000000000000
 
 #Guaranies
-barplot(height=Datos1$y, names=Datos1$x, border="#202020", col="green", 
-        xlab ="Meses", 
+barplot(height=Datos1$y, names=Datos1$x, border="#202020", col="blue", 
+      
         ylab ="Importe destino en miles de millones", 
-        main = "Transferencias por montos y Moneda Guaranies",
-        ylim=c(0,5),las=1)
+        main = "Transferencias por Montos",
+        ylim=c(0,4),las=2)
 
 #otro grafico
 ggplot(Datos, aes( x = as.factor(x) , y= y )) +
@@ -54,7 +54,7 @@ ggplot(Datos, aes( x = as.factor(x) , y= y )) +
   geom_point() + 
   geom_segment( aes(x = x, xend=x, y=0, yend=y)) + 
   labs( x = "Meses", y = "Importe destino en miles de millones", 
-        title = "Transferencias por montos y Moneda Guaranies") 
+        title = "Transferencias por Montos") 
 
 
 library(ggplot2)
@@ -68,4 +68,4 @@ Datos1 %>%
   geom_line() +
   geom_point()+
   labs( x = "Meses", y = "Importe destino en miles de millones", 
-        title = "Transferencias por montos y Moneda Guaranies")
+        title = "Transferencias por Montos")
