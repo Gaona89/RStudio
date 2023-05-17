@@ -122,7 +122,7 @@ anim <- suma_por_añoBanco %>%
     check_overlap=T
   )+
   #scale_color_viridis(discrete = TRUE) +
-  ggtitle("Transacciones por Entidades") +
+  ggtitle("Transacciones por Entidades (PYG)") +
   theme_ipsum() +
   ylab("Importe destino en miles de millones") +
   transition_reveal(as.numeric(año))
@@ -233,7 +233,7 @@ ggplot(df_porcentajeD, aes(x = porcentaje, y = banco, group = 1)) +
 
 # Plot
 
-anim <- suma_por_añoBancoD %>%
+animD <- suma_por_añoBancoD %>%
   ggplot( aes(x = año, y =xd, group=banco, color=banco)) +
   geom_line() +
   geom_point() +
@@ -243,7 +243,7 @@ anim <- suma_por_añoBancoD %>%
     check_overlap=T
   )+
   #scale_color_viridis(discrete = TRUE) +
-  ggtitle("Transacciones por Entidades") +
+  ggtitle("Transacciones por Entidades (USD)") +
   theme_ipsum() +
   ylab("Importe destino en millones") +
   transition_reveal(as.numeric(año))
@@ -252,7 +252,7 @@ anim <- suma_por_añoBancoD %>%
 
 # animate it
 
-animate(anim,
+animate(animD,
         width = 1000, height = 600,
         nframes = 100, fps = 5)
 
@@ -357,7 +357,7 @@ ggplot(df_porcentajeE, aes(x = porcentaje, y = banco, group = 1)) +
 
 # Plot
 
-anim <- suma_por_añoBancoE %>%
+animE <- suma_por_añoBancoE %>%
   ggplot( aes(x = año, y =xd, group=banco, color=banco)) +
   geom_line() +
   geom_point() +
@@ -367,7 +367,7 @@ anim <- suma_por_añoBancoE %>%
     check_overlap=T
   )+
   #scale_color_viridis(discrete = TRUE) +
-  ggtitle("Transacciones por Entidades") +
+  ggtitle("Transacciones por Entidades (EUR)") +
   theme_ipsum() +
   ylab("Importe destino en miles") +
   transition_reveal(as.numeric(año))
@@ -376,7 +376,7 @@ anim <- suma_por_añoBancoE %>%
 
 # animate it
 
-animate(anim,
+animate(animE,
         width = 1000, height = 600,
         nframes = 100, fps = 5)
 
