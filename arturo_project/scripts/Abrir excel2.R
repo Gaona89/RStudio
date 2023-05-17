@@ -1,7 +1,7 @@
-#Abrir excel
+#Abrir excel ####
 
 
-# Instalar/Cargar paquetes
+# Instalar/Cargar paquetes####
 pacman::p_load(tidyverse, # Manejo y tratamiento de datos
                rio,       # Importación y exportación de bases de datos
                REDCapR)   # Importación de datos del REDCap
@@ -10,13 +10,13 @@ if (!require('ggplot2'))
   install.packages("ggplot2")
 library(ggplot2) 
 
-# Importar casos confirmados desde Excel 
+# Importar casos confirmados desde Excel ####
 #Segunda planilla
 df_3 <- import("datos/SIPAP_pestañas/Entidades Financieras 02.xlsx")
 
 ## Compute row and column sums for a matrix:
 
-#Limpiar los valores de Euros se eliminan los valores NA
+#Limpiar los valores de Euros se eliminan los valores NA ####
 
 
 df_3 <- format(df_3, scientific = FALSE)
@@ -56,7 +56,7 @@ df_3$`PYG Cantidad`[is.na(df_3$`PYG Cantidad`)] <- 0
 
 
 
-#Fecha vs Monto
+#Fecha vs Monto ####
 
 #Euros
 FvM = data.frame(x=df_3$`Año`, y = df_3$Euros_Importe_destino) 
@@ -80,7 +80,7 @@ datos_ceros_Montos <- subset(FvMG, FvMG$y != 0)
 df_3$Año <- format(as.Date(paste(df_3$`Año`, "01", sep = "/"), "%Y/%m/%d"), "%Y")
 
 
-#Agrupar valores
+#Agrupar valores ####
 
 #Euros
 suma_por_año <- aggregate(df_3$Euros_Importe_destino, by = list(año = df_3$Año), FUN = sum)
@@ -103,7 +103,7 @@ suma_por_añoG$xd <- suma_por_añoG$x/10000000000000
 suma_por_añoG <- suma_por_añoG %>% filter(año != "2023")
 
 
-#Histograma
+#Histograma####
 
 #Euros
 ggplot(suma_por_año, aes( xd, año)) + geom_point() + labs(y = "Año", x = "Importe destino en millones", title = "Transferencias por Montos y Moneda Euro")  
@@ -120,7 +120,7 @@ ggplot(suma_por_añoG, aes( xd, año)) + geom_point() + labs(y = "Año", x = "Im
 
 ggplot(suma_por_añoG, aes(x = as.factor(año) , y= xd  )) + geom_bar(stat = "identity") + labs( x = "Año", y = "Importe destino en miles de millones", title = "Transferencias por Montos y Moneda Guaranies")  
 
-# Libraries barplot
+# Libraries barplot ####
 library(ggplot2)
 library(dplyr)
 

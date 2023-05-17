@@ -1,7 +1,7 @@
 #Abrir excel
 
 
-# Instalar/Cargar paquetes
+# Instalar/Cargar paquetes ####
 pacman::p_load(tidyverse, # Manejo y tratamiento de datos
                rio,       # Importación y exportación de bases de datos
                REDCapR)   # Importación de datos del REDCap
@@ -10,7 +10,7 @@ if (!require('ggplot2'))
   install.packages("ggplot2")
 library(ggplot2) 
 
-# Importar casos confirmados desde Excel 
+# Importar casos confirmados desde Excel ####
 #sexta planilla - SPI
 df_6 <- import("datos/SIPAP_pestañas/Entidades Financieras 06.xlsx")
 
@@ -41,14 +41,14 @@ library(dplyr)
 Datos1 <- format(datos_ceros_montos, scientific = FALSE)
 Datos1$y <- datos_ceros_montos$y/1000000000000
 
-#Guaranies
+#Guaranies ####
 barplot(height=Datos1$y, names=Datos1$x, border="#202020", col="blue", 
       
         ylab ="Importe destino en miles de millones", 
         main = "Transferencias por Montos",
         ylim=c(0,4),las=2)
 
-#otro grafico
+#otro grafico####
 ggplot(Datos, aes( x = as.factor(x) , y= y )) +
   geom_bar(stat = "identity") +
   geom_point() + 
