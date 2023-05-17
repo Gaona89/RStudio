@@ -1,4 +1,4 @@
-# Instalar/Cargar paquetes
+# Instalar/Cargar paquetes ####
 pacman::p_load(tidyverse, # Manejo y tratamiento de datos
                rio,       # Importación y exportación de bases de datos
                REDCapR)   # Importación de datos del REDCap
@@ -6,23 +6,20 @@ library(dplyr)
 if (!require('ggplot2'))
   install.packages("ggplot2")
 library(ggplot2) 
-
-
 if (!require('gganimate'))
   install.packages("gganimate")
+library(gganimate)
 if (!require('hrbrthemes'))
   install.packages("hrbrthemes")
-
-library(gganimate)
 library(hrbrthemes)
 
 
-##########3 area #################################33
-#ok
+#Importa datos #################################
+
 df_area <- import("datos/SIPAP_pestañas/Entidades Financieras 04.xlsx")
 view(df_area)
 
-#PYG
+# Moneda PYG ####
 df_area_limpio<- df_area %>%  filter(df_area$`Entidad Financiera` %in% c("PYG"))
 df_area_limpio$`Entidad Financiera` <- NULL
 
@@ -42,7 +39,7 @@ suma_por_añoBanco <- aggregate(don2$monto, by = list(año = don2$Año, banco = 
 suma_por_añoBanco$xd <- suma_por_añoBanco$x/10000000000
 
 
-##### Remplazo de codigos 
+##### Remplazo de codigos ####
 suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "AFDEPYPAXXXX", "AGEN FINANC DE DESAR")
 suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "AMAMPYPAXXXX", "BASA S.A.")
 suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "BBVAPYPAXXXX", "BBVA")
@@ -72,7 +69,7 @@ suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco
 suma_por_añoBanco$banco <- replace(suma_por_añoBanco$banco, suma_por_añoBanco$banco == "VISCPYPAXXXX", "VISION")
 
 
-#limpiamos datos de bancos qu eno poseen datos
+#limpiamos datos de bancos que no poseen datos
 
 suma_por_añoBanco <- subset(suma_por_añoBanco, xd != 0)
 
@@ -92,12 +89,8 @@ suma_por_añoBanco <- subset(suma_por_añoBanco, año != 2023)
     sum(df_porcentaje$porcentaje)
     
 
-#Graficar:
-    
-    library(ggplot2)
 
-    
-    # Crear el gráfico de líneas
+    ## Crear el gráfico de porcentajes ####
     ggplot(df_porcentaje, aes(x = porcentaje, y = banco, group = 1)) +
       geom_line() +
       geom_point() +
@@ -106,11 +99,8 @@ suma_por_añoBanco <- subset(suma_por_añoBanco, año != 2023)
       labs(x = "Porcentaje", y = "Entidades", title = "Porcentajes total montos por entidad (PYG)")
 
   
-##### Remplazo de codigos 
+##### Grafico dinamico #### 
 
-#ok
-
-# Plot
 
 anim <- suma_por_añoBanco %>%
   ggplot( aes(x = año, y =xd, group=banco, color=banco)) +
@@ -129,20 +119,20 @@ anim <- suma_por_añoBanco %>%
 
 
 
-# animate it
+### Rescaldado ####
 
 animate(anim,
         width = 1000, height = 600,
         nframes = 100, fps = 5)
 
-# Save at gif:
+### Guardar gif: ####
 anim_save("transaccon_etiqueta_rescalado_Guaranines.gif")
 
 
 
 
 
-# USD
+#Moneda USD ####
 
 df_area_limpioD<- df_area %>%  filter(df_area$`Entidad Financiera` %in% c("USD"))
 df_area_limpioD$`Entidad Financiera` <- NULL
@@ -163,7 +153,7 @@ suma_por_añoBancoD <- aggregate(donD2$monto, by = list(año = donD2$Año, banco
 suma_por_añoBancoD$xd <- suma_por_añoBancoD$x/1000000
 
 
-##### Remplazo de codigos 
+##### Remplazo de codigos ####
 suma_por_añoBancoD$banco <- replace(suma_por_añoBancoD$banco, suma_por_añoBancoD$banco == "AFDEPYPAXXXX", "AGEN FINANC DE DESAR")
 suma_por_añoBancoD$banco <- replace(suma_por_añoBancoD$banco, suma_por_añoBancoD$banco == "AMAMPYPAXXXX", "BASA S.A.")
 suma_por_añoBancoD$banco <- replace(suma_por_añoBancoD$banco, suma_por_añoBancoD$banco == "BBVAPYPAXXXX", "BBVA")
@@ -213,12 +203,7 @@ df_porcentajeD$porcentaje <-round(df_porcentajeD$porcentaje, digits = 2)
 sum(df_porcentajeD$porcentaje)
 
 
-#Graficar:
-
-library(ggplot2)
-
-
-# Crear el gráfico de líneas
+## Crear el gráfico de porcentajes ####
 ggplot(df_porcentajeD, aes(x = porcentaje, y = banco, group = 1)) +
   geom_line() +
   geom_point() +
@@ -227,11 +212,8 @@ ggplot(df_porcentajeD, aes(x = porcentaje, y = banco, group = 1)) +
   labs(x = "Porcentaje", y = "Entidades", title = "Porcentajes total montos por entidad (USD)")
 
 
-##### Remplazo de codigos 
+##### Crea el grafico dinamico #### 
 
-#ok
-
-# Plot
 
 animD <- suma_por_añoBancoD %>%
   ggplot( aes(x = año, y =xd, group=banco, color=banco)) +
@@ -250,18 +232,18 @@ animD <- suma_por_añoBancoD %>%
 
 
 
-# animate it
+## Rescalado ####
 
 animate(animD,
         width = 1000, height = 600,
         nframes = 100, fps = 5)
 
-# Save at gif:
+## Guardar gif ####
 anim_save("transaccon_etiqueta_rescalado_Dolares.gif")
 
 
 
-# EUR
+# Moneda EUR ####
 
 
 
@@ -284,7 +266,7 @@ suma_por_añoBancoE <- aggregate(donE2$monto, by = list(año = donE2$Año, banco
 suma_por_añoBancoE$xd <- suma_por_añoBancoE$x/1000
 
 
-##### Remplazo de codigos 
+##### Remplazo de codigos  ####
 suma_por_añoBancoE$banco <- replace(suma_por_añoBancoE$banco, suma_por_añoBancoE$banco == "AFDEPYPAXXXX", "AGEN FINANC DE DESAR")
 suma_por_añoBancoE$banco <- replace(suma_por_añoBancoE$banco, suma_por_añoBancoE$banco == "AMAMPYPAXXXX", "BASA S.A.")
 suma_por_añoBancoE$banco <- replace(suma_por_añoBancoE$banco, suma_por_añoBancoE$banco == "BBVAPYPAXXXX", "BBVA")
@@ -337,12 +319,7 @@ df_porcentajeE$porcentaje <-round(df_porcentajeE$porcentaje, digits = 2)
 sum(df_porcentajeE$porcentaje)
 
 
-#Graficar:
-
-library(ggplot2)
-
-
-# Crear el gráfico de líneas
+## Crear el gráfico de procentajes ####
 ggplot(df_porcentajeE, aes(x = porcentaje, y = banco, group = 1)) +
   geom_line() +
   geom_point() +
@@ -351,11 +328,8 @@ ggplot(df_porcentajeE, aes(x = porcentaje, y = banco, group = 1)) +
   labs(x = "Porcentaje", y = "Entidades", title = "Porcentajes total montos por entidad (EUR)")
 
 
-##### Remplazo de codigos 
+##### Grafico dinamico ####
 
-#ok
-
-# Plot
 
 animE <- suma_por_añoBancoE %>%
   ggplot( aes(x = año, y =xd, group=banco, color=banco)) +
@@ -374,11 +348,11 @@ animE <- suma_por_añoBancoE %>%
 
 
 
-# animate it
+## Rescalado ####
 
 animate(animE,
         width = 1000, height = 600,
         nframes = 100, fps = 5)
 
-# Save at gif:
+##Guardar GIF ####
 anim_save("transaccon_etiqueta_rescalado_EUROS.gif")
